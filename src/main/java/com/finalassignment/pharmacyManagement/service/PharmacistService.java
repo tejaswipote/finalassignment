@@ -19,7 +19,7 @@ public class PharmacistService {
     private ExPharmacistService exPharmacistService;
 
     public List<Pharmacist> listAllPharmacist() {
-       
+
         return pharmacistRepository.findAll();
     }
 
@@ -38,3 +38,4 @@ public class PharmacistService {
         pharmacistRepository.deleteById(id);
     }
 }
+
