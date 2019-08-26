@@ -41,7 +41,7 @@ public class MedicineController {
 
     @PostMapping("/addMedicine")
     public String addMedicine(@RequestBody Medicine medicine) {
-        
+
         medicineService.save(medicine);
         return "Medicine Successfully added";
     }
