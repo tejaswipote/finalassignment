@@ -1,8 +1,6 @@
 package com.finalassignment.pharmacyManagement.controller;
 
 import com.finalassignment.pharmacyManagement.model.Medicine;
-import com.finalassignment.pharmacyManagement.model.MedicineDetailsToUser;
-import com.finalassignment.pharmacyManagement.service.MedicineDetailsService;
 import com.finalassignment.pharmacyManagement.service.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +16,6 @@ public class MedicineController {
     @Autowired
     private MedicineService medicineService;
 
-    @Autowired
-    private MedicineDetailsService medicineDetailsService;
 
     @GetMapping("/allMedicine")
     public List<Medicine> findAllMedicine() {
@@ -45,16 +41,7 @@ public class MedicineController {
 
     @PostMapping("/addMedicine")
     public String addMedicine(@RequestBody Medicine medicine) {
-        MedicineDetailsToUser medicineDetailsToUser = new MedicineDetailsToUser();
-        medicineDetailsToUser.setMedicineId(medicine.getMedicineId());
-        medicineDetailsToUser.setMedicineName(medicine.getMedicineName());
-        medicineDetailsToUser.setManufacturer(medicine.getManufacturer());
-        medicineDetailsToUser.setCategory(medicine.getCategory());
-        medicineDetailsToUser.setSellingPrice(medicine.getSellingPrice());
-        medicineDetailsToUser.setExpiryDate(medicine.getExpiryDate());
-
-        medicineDetailsService.save(medicineDetailsToUser);
-
+        
         medicineService.save(medicine);
         return "Medicine Successfully added";
     }

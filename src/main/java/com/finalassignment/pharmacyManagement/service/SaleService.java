@@ -26,19 +26,25 @@ public class SaleService {
         Long total = 0L;
         List<Medicine> medicines = sale.getMedicines();
         for (Medicine medicine : medicines) {
+            Long count = medicine.getCount();
             Medicine soldMedicine = medicineService.getById(medicine.getMedicineId());
 
-            total += soldMedicine.getSellingPrice();
+            soldMedicine.setQuantity(soldMedicine.getQuantity() - count);
+            medicineService.save(soldMedicine);
+            total += count * soldMedicine.getSellingPrice();
         }
 
-        sale.setTotal(total);
+            sale.setTotal(total);
 
-        saleRepository.save(sale);
+
+            saleRepository.save(sale);
+
     }
 
     public Sale getById(Long id) {
         return saleRepository.findById(id).get();
     }
+
 
 
 }
