@@ -1,5 +1,6 @@
 package com.finalassignment.pharmacyManagement.service;
 
+import com.finalassignment.pharmacyManagement.ExceptionHandling.ExPharmacistNotFoundException;
 import com.finalassignment.pharmacyManagement.model.ExPharmacist;
 import com.finalassignment.pharmacyManagement.model.Pharmacist;
 import com.finalassignment.pharmacyManagement.repository.ExPharmacistRepository;
@@ -23,7 +24,7 @@ public class ExPharmacistService {
     }
 
     public ExPharmacist getById(Long id) {
-        return exPharmacistRepository.findById(id).get();
+        return exPharmacistRepository.findById(id).orElseThrow(() -> new ExPharmacistNotFoundException(id));
     }
 
 

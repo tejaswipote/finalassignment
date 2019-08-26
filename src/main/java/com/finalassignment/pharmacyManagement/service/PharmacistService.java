@@ -1,6 +1,7 @@
 package com.finalassignment.pharmacyManagement.service;
 
 
+import com.finalassignment.pharmacyManagement.ExceptionHandling.PharmacistNotFoundException;
 import com.finalassignment.pharmacyManagement.model.Pharmacist;
 import com.finalassignment.pharmacyManagement.repository.PharmacistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class PharmacistService {
     }
 
     public Pharmacist getById(Long id) {
-        return pharmacistRepository.findById(id).get();
+        return pharmacistRepository.findById(id).orElseThrow(() -> new PharmacistNotFoundException(id));
     }
 
 

@@ -1,6 +1,7 @@
 package com.finalassignment.pharmacyManagement.service;
 
 
+import com.finalassignment.pharmacyManagement.ExceptionHandling.MedicineNotFoundException;
 import com.finalassignment.pharmacyManagement.model.Medicine;
 import com.finalassignment.pharmacyManagement.repository.MedicineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,8 @@ public class MedicineService {
     }
 
     public Medicine getById(Long id) {
-        return medicineRepository.findById(id).get();
+        return medicineRepository.findById(id).orElseThrow(() -> new MedicineNotFoundException(id));
+
     }
 
 

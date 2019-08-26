@@ -1,5 +1,6 @@
 package com.finalassignment.pharmacyManagement.service;
 
+import com.finalassignment.pharmacyManagement.ExceptionHandling.SaleNotFoundException;
 import com.finalassignment.pharmacyManagement.model.Medicine;
 import com.finalassignment.pharmacyManagement.model.Sale;
 import com.finalassignment.pharmacyManagement.repository.SaleRepository;
@@ -34,17 +35,16 @@ public class SaleService {
             total += count * soldMedicine.getSellingPrice();
         }
 
-            sale.setTotal(total);
+        sale.setTotal(total);
 
 
-           return saleRepository.save(sale);
+        return saleRepository.save(sale);
 
     }
 
     public Sale getById(Long id) {
-        return saleRepository.findById(id).get();
+        return saleRepository.findById(id).orElseThrow(() -> new SaleNotFoundException(id));
     }
-
 
 
 }
