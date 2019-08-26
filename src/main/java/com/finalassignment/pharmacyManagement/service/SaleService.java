@@ -21,7 +21,7 @@ public class SaleService {
         return saleRepository.findAll();
     }
 
-    public void saveSale(Sale sale) {
+    public Sale saveSale(Sale sale) {
 
         Long total = 0L;
         List<Medicine> medicines = sale.getMedicines();
@@ -37,7 +37,7 @@ public class SaleService {
             sale.setTotal(total);
 
 
-            saleRepository.save(sale);
+           return saleRepository.save(sale);
 
     }
 

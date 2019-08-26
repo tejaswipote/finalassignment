@@ -24,6 +24,7 @@ public class Sale {
     private String address;
 
     @ManyToMany
+    @JsonBackReference
     private List<Medicine> medicines = new ArrayList<>();
 
      Long total;
