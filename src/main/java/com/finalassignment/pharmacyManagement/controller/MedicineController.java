@@ -31,10 +31,6 @@ public class MedicineController {
     public Medicine getMedicine(@PathVariable Long medicineId) {
         return medicineService.getById(medicineId);
     }
-//    @GetMapping("/getMedicine/{category}")
-//    public Medicine getMedicine(@PathVariable Long category) {
-//        return medicineService.getByCategory(category);
-//    }
 
     @DeleteMapping(value = "/deleteMedicine/{id}")
     public ResponseEntity<Long> deleteMedicine(@PathVariable Long id) {
@@ -85,14 +81,4 @@ public class MedicineController {
 
 
 }
-//
-//
-//UPDATE single RECORDS
-//
-//
-
-//    @PatchMapping("/patch/id")
-//    public @ResponseBody ResponseEntity<Product> patchBrand(@PathVariable Long id) {
-//        return new ResponseEntity<String>("PATCH Response", HttpStatus.OK);
-//    }
 

@@ -41,9 +41,6 @@ public class MedicineService {
         return medicineRepository.findById(id).get();
     }
 
-//    public Medicine getByCategoy(Long category) {
-//        return medicineRepository.findById(category).get();
-//    }
 
 
     public void delete(long id) {

@@ -19,15 +19,7 @@ public class PharmacistService {
     private ExPharmacistService exPharmacistService;
 
     public List<Pharmacist> listAllPharmacist() {
-        // List<Medicine> list=
-//        list.forEach(medicine ->{
-//            if (medicine.getExpiryDate().compareTo(new Date()) < 0)
-//            {
-//                expiredStockService.movetoExpired(medicine);
-//                medicineRepository.delete(medicine);
-//            }
-//
-//        });
+       
         return pharmacistRepository.findAll();
     }
 

@@ -25,11 +25,10 @@ public class SaleController {
     }
 
 
-
     @PostMapping("/addSale")
     public String addSale(@RequestBody Sale sale) {
 
-        saleService.save(sale);
+        saleService.saveSale(sale);
         return "sale completed";
     }
 
