@@ -1,5 +1,6 @@
 package com.finalassignment.pharmacyManagement.service.serviceImpl;
 
+import com.finalassignment.pharmacyManagement.dto.ExPharmacistDto;
 import com.finalassignment.pharmacyManagement.exceptionhandling.ExPharmacistNotFoundException;
 import com.finalassignment.pharmacyManagement.model.ExPharmacist;
 import com.finalassignment.pharmacyManagement.model.Pharmacist;
@@ -8,7 +9,9 @@ import com.finalassignment.pharmacyManagement.service.ExPharmacistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,13 +23,52 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
     @Autowired
     private ExPharmacistRepository exPharmacistRepository;
 
-    public List<ExPharmacist> listAllExPharmacist() {
-        return exPharmacistRepository.findAll();
+
+    public ExPharmacistServiceImpl(ExPharmacistRepository exPharmacistRepository) {
+        this.exPharmacistRepository = exPharmacistRepository;
     }
+
+
+    private static ExPharmacistDto fromExPharmacist(final ExPharmacist exPharmacist) {
+
+        ExPharmacistDto exPharmacistDto = new ExPharmacistDto();
+        exPharmacistDto.setPharmacistId(exPharmacist.getPharmacistId());
+        exPharmacistDto.setPharmacistName(exPharmacist.getPharmacistName());
+        exPharmacistDto.setAddress(exPharmacist.getAddress());
+        exPharmacistDto.setAdharNo(exPharmacist.getAdharNo());
+        exPharmacistDto.setContactNo(exPharmacist.getContactNo());
+        exPharmacistDto.setEmail(exPharmacist.getEmail());
+        exPharmacistDto.setRetiredOn(new Date());
+        return exPharmacistDto;
+    }
+
+    private static ExPharmacist fromExPharmacistDto(final ExPharmacistDto exPharmacistDto) {
+
+        ExPharmacist exPharmacist = new ExPharmacist();
+        exPharmacist.setPharmacistId(exPharmacistDto.getPharmacistId());
+        exPharmacist.setPharmacistName(exPharmacistDto.getPharmacistName());
+        exPharmacist.setAddress(exPharmacistDto.getAddress());
+        exPharmacist.setAdharNo(exPharmacistDto.getAdharNo());
+        exPharmacist.setContactNo(exPharmacistDto.getContactNo());
+        exPharmacist.setEmail(exPharmacistDto.getEmail());
+        exPharmacist.setRetiredOn(new Date());
+        return exPharmacist;
+    }
+
     @Override
-    public ExPharmacist getById(Long id) {
-        return exPharmacistRepository.findById(id).orElseThrow(() -> new ExPharmacistNotFoundException(id));
+    public List<ExPharmacistDto> listAllExPharmacist() {
+        List<ExPharmacist> exPharmacists = exPharmacistRepository.findAll();
+        List<ExPharmacistDto> exPharmacistDtos = null;
+        if (!CollectionUtils.isEmpty(exPharmacists)) {
+            exPharmacistDtos = new ArrayList<>();
+            for (ExPharmacist exPharmacist : exPharmacists) {
+                ExPharmacistDto exPharmacistDto = fromExPharmacist(exPharmacist);
+                exPharmacistDtos.add(exPharmacistDto);
+            }
+        }
+        return exPharmacistDtos;
     }
+
 
     @Override
     public void movetoExPharmacist(Pharmacist pharmacist) {
@@ -38,6 +80,13 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
         exPharmacist.setAdharNo(pharmacist.getAdharNo());
         exPharmacist.setEmail(pharmacist.getEmail());
         exPharmacistRepository.save(exPharmacist);
+    }
+
+    @Override
+    public ExPharmacistDto getById(Long id) {
+        ExPharmacist exPharmacist = exPharmacistRepository.findById(id).orElseThrow(() -> new ExPharmacistNotFoundException(id));
+        ExPharmacistDto exPharmacistDto = fromExPharmacist(exPharmacist);
+        return exPharmacistDto;
     }
 
     @Override

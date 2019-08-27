@@ -1,7 +1,6 @@
 package com.finalassignment.pharmacyManagement.controller;
 
 
-import com.finalassignment.pharmacyManagement.model.ExpiredStock;
 import com.finalassignment.pharmacyManagement.service.ExpiredStockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,15 +14,17 @@ import java.util.List;
 
 @RestController
 public class ExpiredStockController {
-
     @Autowired
     private ExpiredStockService expiredStockService;
 
+    public ExpiredStockController(ExpiredStockService expiredStockService) {
+        this.expiredStockService = expiredStockService;
+    }
+
 
     @GetMapping("/allExpired")
-    public List<ExpiredStock> findAll() {
-
-        return expiredStockService.listAllStock();
+    public ResponseEntity<List> findAllExStock() {
+        return ResponseEntity.ok(expiredStockService.listAllStock());
     }
 
     @DeleteMapping(value = "/deleteExStock/{id}")

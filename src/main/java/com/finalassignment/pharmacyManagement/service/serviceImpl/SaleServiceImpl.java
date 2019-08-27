@@ -1,5 +1,6 @@
 package com.finalassignment.pharmacyManagement.service.serviceImpl;
 
+import com.finalassignment.pharmacyManagement.dto.MedicineDto;
 import com.finalassignment.pharmacyManagement.dto.SaleDto;
 import com.finalassignment.pharmacyManagement.exceptionhandling.OutOfStockException;
 import com.finalassignment.pharmacyManagement.exceptionhandling.SaleNotFoundException;
@@ -11,7 +12,9 @@ import com.finalassignment.pharmacyManagement.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -58,14 +61,21 @@ public class SaleServiceImpl implements SaleService {
     }
 
 
-
-
-
     @Override
-    public List<Sale> listAllSales() {
-        return saleRepository.findAll();
-    }
+    public List<SaleDto> listAllSales() {
+        List<Sale> sales = saleRepository.findAll();
+        List<SaleDto> saleDtos = null;
 
+
+        if (!CollectionUtils.isEmpty(sales)) {
+            saleDtos = new ArrayList<>();
+            for (Sale sale : sales) {
+                SaleDto saleDto = fromSale(sale);
+                saleDtos.add(saleDto);
+            }
+        }
+        return saleDtos;
+    }
 
 
     @Override
@@ -76,7 +86,7 @@ public class SaleServiceImpl implements SaleService {
         for (Medicine medicine : medicines) {
             Long count = medicine.getCount();
 
-            Medicine soldMedicine = medicineService.getById(medicine.getMedicineId());
+            MedicineDto soldMedicine = medicineService.getById(medicine.getMedicineId());
             if (count > soldMedicine.getQuantity()) {
                 throw new OutOfStockException(count);
             }
@@ -94,12 +104,11 @@ public class SaleServiceImpl implements SaleService {
     }
 
 
-
     @Override
-    public Sale getById(Long id) {
-        Sale sale=saleRepository.findById(id).orElseThrow(()->new SaleNotFoundException(id));
-        SaleDto saleDto=fromSale(sale);
-        return sale;
+    public SaleDto getById(Long id) {
+        Sale sale = saleRepository.findById(id).orElseThrow(() -> new SaleNotFoundException(id));
+        SaleDto saleDto = fromSale(sale);
+        return saleDto;
     }
 
 

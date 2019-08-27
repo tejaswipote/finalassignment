@@ -1,9 +1,10 @@
 package com.finalassignment.pharmacyManagement.controller;
 
 
-import com.finalassignment.pharmacyManagement.model.Pharmacist;
+import com.finalassignment.pharmacyManagement.dto.PharmacistDto;
 import com.finalassignment.pharmacyManagement.service.PharmacistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +17,15 @@ public class PharmacistController {
     @Autowired
     private PharmacistService pharmacistService;
 
+
     @GetMapping("/allPharmacist")
-    public List<Pharmacist> findAllPharmacist() {
-        return pharmacistService.listAllPharmacist();
+    public ResponseEntity<List> findAllPharmacist() {
+        return ResponseEntity.ok(pharmacistService.listAllPharmacist());
     }
 
 
     @GetMapping("/getPharmacist/{pharmacistId}")
-    public Pharmacist getPharmacist(@PathVariable Long pharmacistId) {
+    public PharmacistDto getPharmacist(@PathVariable Long pharmacistId) {
         return pharmacistService.getById(pharmacistId);
     }
 
@@ -39,11 +41,11 @@ public class PharmacistController {
 
 
     @PostMapping("/addPharmacist")
-    public String addPharmacist(@RequestBody Pharmacist pharmacist) {
+    public ResponseEntity<PharmacistDto> addPharmacist(@RequestBody PharmacistDto pharmacistDto) {
 
 
-        pharmacistService.save(pharmacist);
-        return "Pharmacist Successfully added";
+        PharmacistDto addPharmacist = pharmacistService.save(pharmacistDto);
+        return new ResponseEntity(addPharmacist, new HttpHeaders(), HttpStatus.OK);
     }
 
 

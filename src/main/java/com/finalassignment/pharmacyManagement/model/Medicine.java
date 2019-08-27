@@ -27,10 +27,10 @@ public class Medicine {
     private Long sellingPrice;
     private Long quantity;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @PastOrPresent
+    //@PastOrPresent
     private Date manufacturingDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @FutureOrPresent
+    //@FutureOrPresent
     private Date expiryDate;
 
 

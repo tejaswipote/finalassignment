@@ -1,12 +1,15 @@
 package com.finalassignment.pharmacyManagement.service;
 
-import com.finalassignment.pharmacyManagement.model.Pharmacist;
+import com.finalassignment.pharmacyManagement.dto.PharmacistDto;
 
 import java.util.List;
 
 public interface PharmacistService {
-    List<Pharmacist> listAllPharmacist();
-    void save(Pharmacist pharmacist);
+    List<PharmacistDto> listAllPharmacist();
+
+    PharmacistDto save(PharmacistDto pharmacistDto);
+
     void delete(long id);
-    Pharmacist getById(Long id);
+
+    PharmacistDto getById(Long id);
 }
