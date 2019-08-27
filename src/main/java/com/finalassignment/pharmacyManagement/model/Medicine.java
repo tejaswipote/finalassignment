@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 import java.util.Set;
 
@@ -27,10 +29,10 @@ public class Medicine {
     private Long sellingPrice;
     private Long quantity;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    // @PastOrPresent
+     @PastOrPresent
     private Date manufacturingDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    // @FutureOrPresent
+    @FutureOrPresent
     private Date expiryDate;
 
 
