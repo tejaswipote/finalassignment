@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -18,20 +20,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception
     {
         http.httpBasic().and().authorizeRequests()
-                .antMatchers("/allMedicine").hasRole("USER")
-                .antMatchers("/addMedicine").hasRole("ADMIN")
+                .antMatchers("/allMedicine","addSale").permitAll()
+                .antMatchers("/getMedicine/{medicineId}","/updateMedicine/{id}","/allSales","/allExpired","/deleteExStock/{id}").hasAnyRole("PHARMACIST","ADMIN")
+                .antMatchers("/addMedicine","/deleteMedicine/{id}","/addPharmacist","/allPharmacist","deletePharmacist/{id}","/getPharmacist/{id}","/exPharmacist","/getExPharmacist/{id}").hasRole("ADMIN")
                 .and()
                 .csrf().disable();
     }
+
+
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception
     {
         auth.inMemoryAuthentication()
-                .withUser("user").password(passwordEncoder().encode("password")).roles("USER")
+                .withUser("user").password(passwordEncoder().encode("password")).roles("PHARMACIST")
                 .and()
-                .withUser("admin").password(passwordEncoder().encode("password")).roles("USER", "ADMIN");
+                .withUser("admin").password(passwordEncoder().encode("password")).roles("ADMIN");
     }
 
     @Bean
@@ -39,43 +44,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
-
-
-    //
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
-//
-//
-
-
-
-//        authenticationMgr.inMemoryAuthentication()
-//                .withUser("user").password("pass").authorities("USER")
-//                .and()
-//                .withUser("admin").password("pass").authorities("USER","ADMIN");
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//
-//
-
-
-
-
-
-
-
-
-//
-//        http.authorizeRequests()
-//                .antMatchers("/allPharmacist").permitAll()
-//                .antMatchers("/allMedicine").hasAnyRole("USER","ADMIN")//.access("hasRole('USER') or hasRole('ADMIN')")
-//                .antMatchers("/addSale").hasAnyRole("USER")
-//                .antMatchers("/addMedicine").hasRole("ADMIN").anyRequest().authenticated()
-//                .and().httpBasic();
-////
-
-    //}
 }

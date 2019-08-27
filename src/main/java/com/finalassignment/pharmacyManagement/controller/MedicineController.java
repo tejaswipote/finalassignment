@@ -67,7 +67,7 @@ public class MedicineController {
     }
 
 
-    @PatchMapping("/medicine/{id}")
+    @PatchMapping("/updateMedicine/{id}")
     public ResponseEntity<Medicine> updateQuantity(@PathVariable Long id,
                                                    @Valid @RequestBody Medicine medicine) {
         Medicine medicinetoUpdate = medicineService.getById(id);

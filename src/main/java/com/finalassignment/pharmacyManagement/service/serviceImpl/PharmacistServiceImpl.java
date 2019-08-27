@@ -40,5 +40,7 @@ public class PharmacistServiceImpl implements PharmacistService {
         exPharmacistServiceImpl.movetoExPharmacist(pharmacist);
         pharmacistRepository.deleteById(id);
     }
+
+
 }
 

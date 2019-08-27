@@ -1,5 +1,6 @@
 package com.finalassignment.pharmacyManagement.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.finalassignment.pharmacyManagement.model.Medicine;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 public class SaleDto {
 
-    Long total;
+
     private Long saleId;
     private String customerName;
     private String address;
+    @JsonBackReference
     private List<Medicine> medicines = new ArrayList<>();
+    private Long total;
 }
