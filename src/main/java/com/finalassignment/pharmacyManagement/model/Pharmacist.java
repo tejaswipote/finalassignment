@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Date;
 
 @Getter
@@ -22,7 +23,10 @@ public class Pharmacist {
     private Date workingSince;
     private String address;
     private Long adharNo;
+    @Email
     private String email;
+
+    private String password;
 
 
 }

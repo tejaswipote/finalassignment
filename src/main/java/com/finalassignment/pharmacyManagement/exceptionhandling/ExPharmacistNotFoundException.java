@@ -1,4 +1,4 @@
-package com.finalassignment.pharmacyManagement.ExceptionHandling;
+package com.finalassignment.pharmacyManagement.exceptionhandling;
 
 public class ExPharmacistNotFoundException extends RuntimeException {
     private Long exPharmacistId;

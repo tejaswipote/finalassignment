@@ -1,8 +1,7 @@
 package com.finalassignment.pharmacyManagement.service.serviceImpl;
 
-import com.finalassignment.pharmacyManagement.ExceptionHandling.MedicineNotFoundException;
-import com.finalassignment.pharmacyManagement.ExceptionHandling.OutOfStockException;
-import com.finalassignment.pharmacyManagement.ExceptionHandling.SaleNotFoundException;
+import com.finalassignment.pharmacyManagement.exceptionhandling.OutOfStockException;
+import com.finalassignment.pharmacyManagement.exceptionhandling.SaleNotFoundException;
 import com.finalassignment.pharmacyManagement.model.Medicine;
 import com.finalassignment.pharmacyManagement.model.Sale;
 import com.finalassignment.pharmacyManagement.repository.SaleRepository;

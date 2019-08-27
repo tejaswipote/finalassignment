@@ -22,6 +22,7 @@ public class ExpiredStockController {
 
     @GetMapping("/allExpired")
     public List<ExpiredStock> findAll() {
+
         return expiredStockService.listAllStock();
     }
 

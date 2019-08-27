@@ -1,11 +1,10 @@
 package com.finalassignment.pharmacyManagement.service.serviceImpl;
 
 
-import com.finalassignment.pharmacyManagement.ExceptionHandling.PharmacistNotFoundException;
+import com.finalassignment.pharmacyManagement.exceptionhandling.PharmacistNotFoundException;
 import com.finalassignment.pharmacyManagement.model.Pharmacist;
 import com.finalassignment.pharmacyManagement.repository.PharmacistRepository;
 import com.finalassignment.pharmacyManagement.service.PharmacistService;
-import com.finalassignment.pharmacyManagement.service.serviceImpl.ExPharmacistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

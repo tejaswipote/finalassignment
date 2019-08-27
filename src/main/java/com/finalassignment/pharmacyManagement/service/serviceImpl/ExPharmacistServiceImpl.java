@@ -1,6 +1,6 @@
 package com.finalassignment.pharmacyManagement.service.serviceImpl;
 
-import com.finalassignment.pharmacyManagement.ExceptionHandling.ExPharmacistNotFoundException;
+import com.finalassignment.pharmacyManagement.exceptionhandling.ExPharmacistNotFoundException;
 import com.finalassignment.pharmacyManagement.model.ExPharmacist;
 import com.finalassignment.pharmacyManagement.model.Pharmacist;
 import com.finalassignment.pharmacyManagement.repository.ExPharmacistRepository;

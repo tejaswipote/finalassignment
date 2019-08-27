@@ -1,4 +1,4 @@
-package com.finalassignment.pharmacyManagement.DTO;
+package com.finalassignment.pharmacyManagement.dto;
 
 import com.finalassignment.pharmacyManagement.model.Medicine;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.finalassignment.pharmacyManagement.ExceptionHandling;
+package com.finalassignment.pharmacyManagement.exceptionhandling;
 
 
 public class SaleNotFoundException extends RuntimeException {

@@ -2,8 +2,6 @@ package com.finalassignment.pharmacyManagement.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,7 +27,7 @@ public class Medicine {
     private Long sellingPrice;
     private Long quantity;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-     @PastOrPresent
+    @PastOrPresent
     private Date manufacturingDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @FutureOrPresent
@@ -37,6 +35,7 @@ public class Medicine {
 
 
     @ManyToMany(mappedBy = "medicines")
+    @JsonBackReference
     private Set<Sale> sales;
 
     private Long count;
