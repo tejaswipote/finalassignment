@@ -15,19 +15,19 @@ public class SaleController {
 
     @Autowired
     private SaleService saleService;
-
+//Returns all sales till the date
     @GetMapping("/allSales")
     public ResponseEntity<List> findAllSales() {
         return ResponseEntity.ok(saleService.listAllSales());
     }
 
-
+//gives details of sale for given id
     @GetMapping("/getSale/{saleId}")
     public SaleDto getSale(@PathVariable Long saleId) {
         return saleService.getById(saleId);
     }
 
-
+//Makes a new sale
     @PostMapping("/addSale")
     public ResponseEntity<SaleDto> addSale(@RequestBody SaleDto saleDto) {
         SaleDto addsale = saleService.saveSale(saleDto);

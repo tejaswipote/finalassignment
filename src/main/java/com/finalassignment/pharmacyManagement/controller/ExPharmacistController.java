@@ -16,12 +16,13 @@ public class ExPharmacistController {
     @Autowired
     private ExPharmacistService exPharmacistService;
 
+    //Returns the list of all EXPharmacist
     @GetMapping("/exPharmacist")
     public ResponseEntity<List> findAllExPharmacist() {
         return ResponseEntity.ok(exPharmacistService.listAllExPharmacist());
     }
 
-
+    //Returns a EXPharmacist of given Id
     @GetMapping("/getExPharmacist/{exId}")
     public ExPharmacistDto getById(@PathVariable Long exId) {
         return exPharmacistService.getById(exId);

@@ -21,19 +21,18 @@ public class ExpiredStockController {
         this.expiredStockService = expiredStockService;
     }
 
-
+    //Returns the all expired Stock in medical
     @GetMapping("/allExpired")
     public ResponseEntity<List> findAllExStock() {
+
         return ResponseEntity.ok(expiredStockService.listAllStock());
     }
 
+    //Delete the Expired Stock for given id
     @DeleteMapping(value = "/deleteExStock/{id}")
     public ResponseEntity<Long> deleteExStock(@PathVariable Long id) {
 
-
         expiredStockService.delete(id);
-
-
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }
