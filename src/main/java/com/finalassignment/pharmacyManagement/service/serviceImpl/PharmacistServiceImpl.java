@@ -29,6 +29,7 @@ public class PharmacistServiceImpl implements PharmacistService {
         this.pharmacistRepository = pharmacistRepository;
     }
 
+    //This is entity converter method which changes entity from Pharmacist to PharmacistDto
 
     private static PharmacistDto fromPharmacist(final Pharmacist pharmacist) {
 
@@ -42,6 +43,7 @@ public class PharmacistServiceImpl implements PharmacistService {
         return pharmacistDto;
     }
 
+    //This is entity converter method which changes entity from PharmacistDto to Pharmacist
     private static Pharmacist fromPharmacistDto(final PharmacistDto pharmacistDto) {
 
         Pharmacist pharmacist = new Pharmacist();
@@ -61,6 +63,7 @@ public class PharmacistServiceImpl implements PharmacistService {
         List<PharmacistDto> pharmacistDtos = null;
         if (!CollectionUtils.isEmpty(pharmacists)) {
             pharmacistDtos = new ArrayList<>();
+            //loop through all pharmacists
             for (Pharmacist pharmacist : pharmacists) {
                 PharmacistDto pharmacistDto = fromPharmacist(pharmacist);
                 pharmacistDtos.add(pharmacistDto);
@@ -83,7 +86,7 @@ public class PharmacistServiceImpl implements PharmacistService {
         PharmacistDto pharmacistDto = fromPharmacist(pharmacist);
         return pharmacistDto;
     }
-
+//    when Pharmacist get deleted, Pharmacist will move to ExPharmacist
     @Override
     public void delete(long id) {
         Pharmacist pharmacist = pharmacistRepository.findById(id).get();

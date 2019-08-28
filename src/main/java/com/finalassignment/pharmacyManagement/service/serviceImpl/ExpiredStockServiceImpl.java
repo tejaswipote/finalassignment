@@ -21,6 +21,7 @@ public class ExpiredStockServiceImpl implements ExpiredStockService {
     @Autowired
     private ExpiredStockRepository expiredStockRepository;
 
+    //This is entity converter method which changes entity from ExpiredStock to ExpiredStockDto
     private static ExpiredStockDto fromExStockDto(final ExpiredStock expiredStock) {
 
         ExpiredStockDto expiredStockDto = new ExpiredStockDto();
@@ -34,6 +35,7 @@ public class ExpiredStockServiceImpl implements ExpiredStockService {
 
         return expiredStockDto;
     }
+    //This is entity converter method which changes entity from ExpiredStockDto  to ExpiredStock
 
     private static ExpiredStock fromExStock(final ExpiredStockDto expiredStockDto) {
 
@@ -57,6 +59,7 @@ public class ExpiredStockServiceImpl implements ExpiredStockService {
         List<ExpiredStockDto> expiredStockDtos = null;
         if (!CollectionUtils.isEmpty(expiredStocks)) {
             expiredStockDtos = new ArrayList<>();
+            //loops through all expiredStocks
             for (ExpiredStock expiredStock : expiredStocks) {
                 ExpiredStockDto expiredStockDto = fromExStockDto(expiredStock);
                 expiredStockDtos.add(expiredStockDto);
@@ -64,6 +67,9 @@ public class ExpiredStockServiceImpl implements ExpiredStockService {
         }
         return expiredStockDtos;
     }
+
+
+    //this method convert medicine object to ExpiredMedicine
 
     @Override
     public void movetoExpired(Medicine medicine) {

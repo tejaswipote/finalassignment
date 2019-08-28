@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 public class MedicineController {
+    private final static Logger LOGGER =
+            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     @Autowired
     private MedicineService medicineService;
@@ -20,12 +24,16 @@ public class MedicineController {
     //Returns the List of all Medicine
     @GetMapping("/allMedicine")
     public ResponseEntity<List> findAllMedicine() {
+        LOGGER.log(Level.INFO, "retrieving all medicines");
+
         return ResponseEntity.ok(medicineService.listAllMedicine());
     }
 
     //Gives Medicine details for the given id
     @GetMapping("/getMedicine/{medicineId}")
     public MedicineDto getMedicine(@PathVariable Long medicineId) {
+        LOGGER.log(Level.INFO, "getting a medicine  details for medicineId "+ medicineId);
+
 
         return medicineService.getById(medicineId);
     }
@@ -33,6 +41,8 @@ public class MedicineController {
     //Delete Medicine of given id
     @DeleteMapping(value = "/deleteMedicine/{id}")
     public ResponseEntity<Long> deleteMedicine(@PathVariable Long id) {
+        LOGGER.log(Level.INFO, "deleting a medicine  details for medicineId "+ id);
+
         medicineService.delete(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
@@ -40,6 +50,8 @@ public class MedicineController {
     //Add given medicine
     @PostMapping("/addMedicine")
     public ResponseEntity<MedicineDto> addMedicine(@RequestBody MedicineDto medicineDto) {
+        LOGGER.log(Level.INFO, "adding new medicine ");
+
 
         MedicineDto addMedicine = medicineService.save(medicineDto);
         return new ResponseEntity(addMedicine, new HttpHeaders(), HttpStatus.OK);
@@ -50,6 +62,8 @@ public class MedicineController {
     @PatchMapping("/updateMedicine/{id}")
     public ResponseEntity<MedicineDto> updateQuantity(@PathVariable Long id,
                                                       @Valid @RequestBody MedicineDto medicineDto) {
+        LOGGER.log(Level.INFO, "updating medicine   details for id "+ id);
+
         MedicineDto medicinetoUpdate = medicineService.getById(id);
         medicinetoUpdate.setQuantity(medicineDto.getQuantity());
         medicinetoUpdate.setManufacturingDate(medicineDto.getManufacturingDate());

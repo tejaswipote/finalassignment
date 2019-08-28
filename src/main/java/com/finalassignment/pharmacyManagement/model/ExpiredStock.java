@@ -6,25 +6,40 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Past;
 import java.util.Date;
 
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "expired_stock")
 public class ExpiredStock {
+
     @Id
+    @Column(name = "medicine_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long medicineId;
+    @Column(name = "medicine_name")
     private String medicineName;
+    @Column(name = "category")
     private String category;
+    @Column(name = "manufacturer")
+    private String manufacturer;
+    @Column(name = "cost_price")
     private Long costPrice;
+
+    @Column(name = "quantity")
+
     private Long quantity;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @Past
+    @Column(name = "manufacturing_date")
+
+    //@PastOrPresent
     private Date manufacturingDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @Past
+    @Column(name = "expiry_date")
+
+    //@FutureOrPresent
     private Date expiryDate;
+
+
 }

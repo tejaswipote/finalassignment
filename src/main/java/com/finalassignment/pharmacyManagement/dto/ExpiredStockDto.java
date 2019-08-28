@@ -18,9 +18,7 @@ public class ExpiredStockDto {
     private Long costPrice;
     private Long quantity;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-
     private Date manufacturingDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-
     private Date expiryDate;
 }

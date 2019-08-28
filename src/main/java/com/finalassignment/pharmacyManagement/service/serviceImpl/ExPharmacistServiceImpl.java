@@ -28,7 +28,7 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
         this.exPharmacistRepository = exPharmacistRepository;
     }
 
-
+    //This method is entity converter from ExPharmacist to ExPharmacistDto
     private static ExPharmacistDto fromExPharmacist(final ExPharmacist exPharmacist) {
 
         ExPharmacistDto exPharmacistDto = new ExPharmacistDto();
@@ -42,6 +42,7 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
         return exPharmacistDto;
     }
 
+    //This method is entity converter from  ExPharmacistDto to  ExPharmacist
     private static ExPharmacist fromExPharmacistDto(final ExPharmacistDto exPharmacistDto) {
 
         ExPharmacist exPharmacist = new ExPharmacist();
@@ -61,6 +62,7 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
         List<ExPharmacistDto> exPharmacistDtos = null;
         if (!CollectionUtils.isEmpty(exPharmacists)) {
             exPharmacistDtos = new ArrayList<>();
+            //loop through all ExPharmacist
             for (ExPharmacist exPharmacist : exPharmacists) {
                 ExPharmacistDto exPharmacistDto = fromExPharmacist(exPharmacist);
                 exPharmacistDtos.add(exPharmacistDto);
@@ -69,7 +71,7 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
         return exPharmacistDtos;
     }
 
-
+    //This method connverts pharmacist to ExPharmacist
     @Override
     public void movetoExPharmacist(Pharmacist pharmacist) {
         ExPharmacist exPharmacist = new ExPharmacist();

@@ -23,14 +23,10 @@ public class MedicineDto {
     private Long sellingPrice;
     private Long quantity;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-
     private Date manufacturingDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-
     private Date expiryDate;
-
     private Set<Sale> sales;
-
     private Long count;
 
 }

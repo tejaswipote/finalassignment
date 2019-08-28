@@ -15,11 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 @Transactional
 public class SaleServiceImpl implements SaleService {
+    private final static Logger LOGGER =
+            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     @Autowired
     private SaleRepository saleRepository;
     @Autowired
@@ -30,6 +35,7 @@ public class SaleServiceImpl implements SaleService {
         this.saleRepository = saleRepository;
     }
 
+    //This is entity converter method which changes entity from Sale to SaleDto
 
     private static SaleDto fromSale(final Sale sale) {
 
@@ -39,8 +45,10 @@ public class SaleServiceImpl implements SaleService {
         saleDto.setAddress(sale.getAddress());
         saleDto.setMedicines(sale.getMedicines());
         saleDto.setTotal(sale.getTotal());
+        saleDto.setDate(new Date());
         return saleDto;
     }
+    //This is entity converter method which changes entity from SaleDto  to Sale
 
     private static Sale fromSaleDto(final SaleDto saleDto) {
 
@@ -50,6 +58,7 @@ public class SaleServiceImpl implements SaleService {
         sale.setAddress(saleDto.getAddress());
         sale.setMedicines(saleDto.getMedicines());
         sale.setTotal(saleDto.getTotal());
+        sale.setDate(new Date());
         return sale;
     }
 
@@ -69,6 +78,7 @@ public class SaleServiceImpl implements SaleService {
 
         if (!CollectionUtils.isEmpty(sales)) {
             saleDtos = new ArrayList<>();
+            //loop through all sales
             for (Sale sale : sales) {
                 SaleDto saleDto = fromSale(sale);
                 saleDtos.add(saleDto);
@@ -83,15 +93,21 @@ public class SaleServiceImpl implements SaleService {
 
         Long total = 0L;
         List<Medicine> medicines = saleDto.getMedicines();
+        LOGGER.log(Level.INFO, "calculating total ");
+
+        //loops through all Medicine in sale
         for (Medicine medicine : medicines) {
             Long count = medicine.getCount();
 
             MedicineDto soldMedicine = medicineService.getById(medicine.getMedicineId());
+            //check if stock is available or not
             if (count > soldMedicine.getQuantity()) {
                 throw new OutOfStockException(count);
             }
+            //decrease the quantity of medicine
             soldMedicine.setQuantity(soldMedicine.getQuantity() - count);
             medicineService.save(soldMedicine);
+            //calculate total price for sale
             total += count * soldMedicine.getSellingPrice();
         }
 

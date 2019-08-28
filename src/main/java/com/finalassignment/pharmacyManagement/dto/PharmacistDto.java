@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import java.util.Date;
 
 @Getter
@@ -21,6 +22,7 @@ public class PharmacistDto {
     private Date workingSince;
     private String address;
     private Long adharNo;
+    @Email
     private String email;
     private String password;
 }

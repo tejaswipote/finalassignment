@@ -27,6 +27,7 @@ public class MedicineServiceImpl implements MedicineService {
     @Autowired
     private ExpiredStockService expiredStockService;
 
+    //This is entity converter method which changes entity from Medicine to MedicineDto
 
     private static MedicineDto fromMedicine(final Medicine medicine) {
 
@@ -45,6 +46,8 @@ public class MedicineServiceImpl implements MedicineService {
 
         return medicineDto;
     }
+
+    //This is entity converter method which changes entity from MedicineDto to Medicine
 
     private static Medicine fromMedicineDto(final MedicineDto medicineDto) {
 
@@ -68,8 +71,11 @@ public class MedicineServiceImpl implements MedicineService {
     public List<MedicineDto> listAllMedicine() {
         List<Medicine> list = medicineRepository.findAll();
         List<MedicineDto> medicineDtos = null;
+        //Check for expiryDate of medicine
         list.forEach(medicine -> {
             if (medicine.getExpiryDate().compareTo(new Date()) < 0) {
+
+                //if medicine has expired then it removes from medicine and insert into expired stock
                 expiredStockService.movetoExpired(medicine);
                 medicineRepository.delete(medicine);
             }
@@ -77,6 +83,7 @@ public class MedicineServiceImpl implements MedicineService {
         });
         if (!CollectionUtils.isEmpty(list)) {
             medicineDtos = new ArrayList<>();
+            //loop through all Medicine in list
             for (Medicine medicine : list) {
                 MedicineDto medicineDto = fromMedicine(medicine);
                 medicineDtos.add(medicineDto);
