@@ -8,6 +8,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ *  *This is a model class that contains details of Expired stock
+ */
 @Getter
 @Setter
 @Entity

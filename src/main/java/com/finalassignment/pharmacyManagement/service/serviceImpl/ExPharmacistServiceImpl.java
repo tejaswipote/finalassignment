@@ -28,7 +28,13 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
         this.exPharmacistRepository = exPharmacistRepository;
     }
 
-    //This method is entity converter from ExPharmacist to ExPharmacistDto
+
+    /**
+     * This method is entity converter from ExPharmacist to ExPharmacistDto
+     *
+     * @param exPharmacist
+     * @return
+     */
     private static ExPharmacistDto fromExPharmacist(final ExPharmacist exPharmacist) {
 
         ExPharmacistDto exPharmacistDto = new ExPharmacistDto();
@@ -42,7 +48,13 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
         return exPharmacistDto;
     }
 
-    //This method is entity converter from  ExPharmacistDto to  ExPharmacist
+
+    /**
+     * This method is entity converter from  ExPharmacistDto to  ExPharmacist
+     *
+     * @param exPharmacistDto
+     * @return
+     */
     private static ExPharmacist fromExPharmacistDto(final ExPharmacistDto exPharmacistDto) {
 
         ExPharmacist exPharmacist = new ExPharmacist();
@@ -56,6 +68,11 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
         return exPharmacist;
     }
 
+    /**
+     * lists all ExPharmacist
+     *
+     * @return
+     */
     @Override
     public List<ExPharmacistDto> listAllExPharmacist() {
         List<ExPharmacist> exPharmacists = exPharmacistRepository.findAll();
@@ -71,7 +88,11 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
         return exPharmacistDtos;
     }
 
-    //This method connverts pharmacist to ExPharmacist
+    /**
+     * This method connverts pharmacist to ExPharmacist
+     *
+     * @param pharmacist
+     */
     @Override
     public void movetoExPharmacist(Pharmacist pharmacist) {
         ExPharmacist exPharmacist = new ExPharmacist();
@@ -84,6 +105,11 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
         exPharmacistRepository.save(exPharmacist);
     }
 
+    /**
+     * @param id
+     * @return a EXPharmacist of given Id
+     */
+
     @Override
     public ExPharmacistDto getById(Long id) {
         ExPharmacist exPharmacist = exPharmacistRepository.findById(id).orElseThrow(() -> new ExPharmacistNotFoundException(id));
@@ -91,6 +117,11 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
         return exPharmacistDto;
     }
 
+    /**
+     * delete EXPharmacist of given Id
+     *
+     * @param id
+     */
     @Override
     public void deleteExPharmacist(long id) {
         exPharmacistRepository.deleteById(id);

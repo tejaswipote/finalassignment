@@ -21,7 +21,10 @@ public class PharmacistController {
     @Autowired
     private PharmacistService pharmacistService;
 
-    //Returns the list of all Pharmacist
+    /**
+     *
+     * @return list of all Pharmacist
+     */
     @GetMapping("/allPharmacist")
     public ResponseEntity<List> findAllPharmacist() {
         LOGGER.log(Level.INFO, "retriving all pharmacist");
@@ -29,7 +32,12 @@ public class PharmacistController {
         return ResponseEntity.ok(pharmacistService.listAllPharmacist());
     }
 
-    //Return a pharmacist for given id
+
+    /**
+     *
+     * @param pharmacistId
+     * @return a pharmacist for given id
+     */
     @GetMapping("/getPharmacist/{pharmacistId}")
     public PharmacistDto getPharmacist(@PathVariable Long pharmacistId) {
         LOGGER.log(Level.INFO, "getting a pharmacist  details for pharmacistid "+ pharmacistId);
@@ -37,7 +45,13 @@ public class PharmacistController {
         return pharmacistService.getById(pharmacistId);
     }
 
-    //delete pharmacist for given id
+
+
+    /**
+     * delete pharmacist for given id
+     * @param id
+     * @return
+     */
     @DeleteMapping(value = "/deletePharmacist/{id}")
     public ResponseEntity<Long> deletePharmacist(@PathVariable Long id) {
         LOGGER.log(Level.INFO, "deleting a sale  details for id "+ id);
@@ -46,7 +60,11 @@ public class PharmacistController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    //adding a new pharmacist
+    /**
+     * adding a new pharmacist
+     * @param pharmacistDto
+     * @return
+     */
     @PostMapping("/addPharmacist")
     public ResponseEntity<PharmacistDto> addPharmacist(@RequestBody PharmacistDto pharmacistDto) {
         LOGGER.log(Level.INFO, "Pharmacist added");

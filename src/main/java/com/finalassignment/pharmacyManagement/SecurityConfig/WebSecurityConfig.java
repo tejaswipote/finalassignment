@@ -10,34 +10,39 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception
-    {
+    protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and().authorizeRequests()
-                .antMatchers("/allMedicine","addSale").permitAll()
-                .antMatchers("/getMedicine/{medicineId}","/updateMedicine/{id}","/allSales","/allExpired","/deleteExStock/{id}").hasAnyRole("PHARMACIST","ADMIN")
-                .antMatchers("/addMedicine","/deleteMedicine/{id}","/addPharmacist","/allPharmacist","deletePharmacist/{id}","/getPharmacist/{id}","/exPharmacist","/getExPharmacist/{id}").hasRole("ADMIN")
+                .antMatchers("/allMedicine", "addSale").permitAll()
+                .antMatchers("/getMedicine/{medicineId}", "/updateMedicine/{id}", "/allSales", "/allExpired", "/deleteExStock/{id}").hasAnyRole("PHARMACIST", "ADMIN")
+                .antMatchers("/addMedicine", "/deleteMedicine/{id}", "/addPharmacist", "/allPharmacist", "deletePharmacist/{id}", "/getPharmacist/{id}", "/exPharmacist", "/getExPharmacist/{id}").hasRole("ADMIN")
                 .and()
                 .csrf().disable();
     }
 
-
+    /**
+     * This method sets roles , username and password
+     * @param auth
+     * @throws Exception
+     */
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
-            throws Exception
-    {
+            throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("user").password(passwordEncoder().encode("password")).roles("PHARMACIST")
                 .and()
                 .withUser("admin").password(passwordEncoder().encode("password")).roles("ADMIN");
     }
+
+    /**
+     *
+     * This method perform Encryption
+     */
 
     @Bean
     public PasswordEncoder passwordEncoder() {

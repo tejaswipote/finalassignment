@@ -9,6 +9,9 @@ import lombok.Setter;
 import javax.validation.constraints.Email;
 import java.util.Date;
 
+/**
+ * This is DTO class for Pharmacist entity
+ */
 @Getter
 @Setter
 @NoArgsConstructor

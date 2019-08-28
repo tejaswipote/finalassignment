@@ -9,6 +9,9 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
+/**
+ *  This is a model class that contains details of Medicine
+ */
 @Getter
 @Setter
 @Entity

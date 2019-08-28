@@ -110,7 +110,7 @@ public class SaleServiceImpl implements SaleService {
             //calculate total price for sale
             total += count * soldMedicine.getSellingPrice();
         }
-
+        saleDto.setDate(new Date());
         saleDto.setTotal(total);
 
         Sale sale = fromSaleDto(saleDto);

@@ -25,7 +25,10 @@ public class ExpiredStockController {
         this.expiredStockService = expiredStockService;
     }
 
-    //Returns the all expired Stock in medical
+    /**
+     *
+     * @return all expired Stock in medical
+     */
     @GetMapping("/allExpired")
     public ResponseEntity<List> findAllExStock() {
         LOGGER.log(Level.INFO, "getting all ExpirdStock ");
@@ -34,6 +37,12 @@ public class ExpiredStockController {
     }
 
     //Delete the Expired Stock for given id
+
+    /**
+     * Delete the Expired Stock for given id
+     * @param id
+     * @return
+     */
     @DeleteMapping(value = "/deleteExStock/{id}")
     public ResponseEntity<Long> deleteExStock(@PathVariable Long id) {
         LOGGER.log(Level.INFO, "deleting ExpirdStock for id  "+id);

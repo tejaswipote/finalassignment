@@ -10,6 +10,9 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.Set;
 
+/**
+ * This is DTO class for Medicine entity
+ */
 @Getter
 @Setter
 @NoArgsConstructor

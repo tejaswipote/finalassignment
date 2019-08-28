@@ -20,8 +20,10 @@ public class MedicineController {
 
     @Autowired
     private MedicineService medicineService;
-
-    //Returns the List of all Medicine
+    /**
+     *
+     * @return List of all Medicine
+     */
     @GetMapping("/allMedicine")
     public ResponseEntity<List> findAllMedicine() {
         LOGGER.log(Level.INFO, "retrieving all medicines");
@@ -29,7 +31,12 @@ public class MedicineController {
         return ResponseEntity.ok(medicineService.listAllMedicine());
     }
 
-    //Gives Medicine details for the given id
+
+    /**
+     *
+     * @param medicineId
+     * @return Medicine details for the given id
+     */
     @GetMapping("/getMedicine/{medicineId}")
     public MedicineDto getMedicine(@PathVariable Long medicineId) {
         LOGGER.log(Level.INFO, "getting a medicine  details for medicineId "+ medicineId);
@@ -38,7 +45,11 @@ public class MedicineController {
         return medicineService.getById(medicineId);
     }
 
-    //Delete Medicine of given id
+    /**
+     * Delete Medicine of given id
+     * @param id
+     * @return
+     */
     @DeleteMapping(value = "/deleteMedicine/{id}")
     public ResponseEntity<Long> deleteMedicine(@PathVariable Long id) {
         LOGGER.log(Level.INFO, "deleting a medicine  details for medicineId "+ id);
@@ -47,7 +58,13 @@ public class MedicineController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    //Add given medicine
+    //
+
+    /**
+     * Add given medicine
+     * @param medicineDto
+     * @return
+     */
     @PostMapping("/addMedicine")
     public ResponseEntity<MedicineDto> addMedicine(@RequestBody MedicineDto medicineDto) {
         LOGGER.log(Level.INFO, "adding new medicine ");
@@ -58,7 +75,12 @@ public class MedicineController {
 
     }
 
-    //Update medicine details such as quantity, Manufacturing date & Expiry date
+    /**
+     * Update medicine details such as quantity, Manufacturing date & Expiry date
+     * @param id
+     * @param medicineDto
+     * @return
+     */
     @PatchMapping("/updateMedicine/{id}")
     public ResponseEntity<MedicineDto> updateQuantity(@PathVariable Long id,
                                                       @Valid @RequestBody MedicineDto medicineDto) {

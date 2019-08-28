@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-
+/**
+ * This is DTO class for ExpiredStock entity
+ */
 @Getter
 @Setter
 @NoArgsConstructor

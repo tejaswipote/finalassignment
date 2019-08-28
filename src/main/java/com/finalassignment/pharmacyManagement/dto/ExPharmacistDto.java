@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import java.util.Date;
 
+/**
+ * This is DTO class for ExPharmacist entity
+ */
 @Getter
 @Setter
 @NoArgsConstructor

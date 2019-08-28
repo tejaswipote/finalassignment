@@ -20,7 +20,10 @@ public class ExPharmacistController {
     @Autowired
     private ExPharmacistService exPharmacistService;
 
-    //Returns the list of all EXPharmacist
+
+    /**
+     * @return list of all EXPharmacist
+     */
     @GetMapping("/exPharmacist")
     public ResponseEntity<List> findAllExPharmacist() {
         LOGGER.log(Level.INFO, "getting all ExPharmacist s");
@@ -28,10 +31,14 @@ public class ExPharmacistController {
         return ResponseEntity.ok(exPharmacistService.listAllExPharmacist());
     }
 
-    //Returns a EXPharmacist of given Id
+
+    /**
+     * @param exId
+     * @return a EXPharmacist of given Id
+     */
     @GetMapping("/getExPharmacist/{exId}")
     public ExPharmacistDto getById(@PathVariable Long exId) {
-        LOGGER.log(Level.INFO, "getting  ExpirdStock of id "+exId);
+        LOGGER.log(Level.INFO, "getting  ExpirdStock of id " + exId);
 
         return exPharmacistService.getById(exId);
     }

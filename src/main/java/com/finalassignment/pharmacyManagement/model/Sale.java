@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *  *This is a model class that contains details of Sale
+ */
 @Getter
 @Setter
 @Entity

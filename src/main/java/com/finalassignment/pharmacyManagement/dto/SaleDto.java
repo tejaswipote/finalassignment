@@ -1,3 +1,4 @@
+
 package com.finalassignment.pharmacyManagement.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -10,9 +11,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+/**
+ * This is DTO class for Sale entity
+ */
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class SaleDto {
     private Long saleId;
     private String customerName;
