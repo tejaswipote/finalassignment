@@ -29,8 +29,6 @@ public class SaleServiceImpl implements SaleService {
     private SaleRepository saleRepository;
     @Autowired
     private MedicineService medicineService;
-    @Autowired
-    private ModelMapper modelMapper;
 
     public SaleServiceImpl(SaleRepository saleRepository) {
         this.saleRepository = saleRepository;
