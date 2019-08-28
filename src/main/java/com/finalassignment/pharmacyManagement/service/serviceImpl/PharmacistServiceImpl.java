@@ -29,12 +29,16 @@ public class PharmacistServiceImpl implements PharmacistService {
         this.pharmacistRepository = pharmacistRepository;
     }
 
-    //This is entity converter method which changes entity from Pharmacist to PharmacistDto
+
+    /**
+     * This is entity converter method which changes entity from Pharmacist to PharmacistDto
+     * @param pharmacist
+     * @return
+     */
 
     private static PharmacistDto fromPharmacist(final Pharmacist pharmacist) {
 
         PharmacistDto pharmacistDto = new PharmacistDto();
-        pharmacistDto.setPharmacistId(pharmacist.getPharmacistId());
         pharmacistDto.setPharmacistName(pharmacist.getPharmacistName());
         pharmacistDto.setAddress(pharmacist.getAddress());
         pharmacistDto.setAdharNo(pharmacist.getAdharNo());
@@ -43,11 +47,14 @@ public class PharmacistServiceImpl implements PharmacistService {
         return pharmacistDto;
     }
 
-    //This is entity converter method which changes entity from PharmacistDto to Pharmacist
+    /**
+     * This is entity converter method which changes entity from PharmacistDto to Pharmacist
+     * @param pharmacistDto
+     * @return
+     */
     private static Pharmacist fromPharmacistDto(final PharmacistDto pharmacistDto) {
 
         Pharmacist pharmacist = new Pharmacist();
-        pharmacist.setPharmacistId(pharmacistDto.getPharmacistId());
         pharmacist.setPharmacistName(pharmacistDto.getPharmacistName());
         pharmacist.setAddress(pharmacistDto.getAddress());
         pharmacist.setAdharNo(pharmacistDto.getAdharNo());
@@ -56,7 +63,10 @@ public class PharmacistServiceImpl implements PharmacistService {
         return pharmacist;
     }
 
-
+    /**
+     *
+     * @return list of all pharmacist
+     */
     @Override
     public List<PharmacistDto> listAllPharmacist() {
         List<Pharmacist> pharmacists = pharmacistRepository.findAll();

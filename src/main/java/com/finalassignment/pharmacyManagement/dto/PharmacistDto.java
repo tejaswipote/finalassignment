@@ -27,5 +27,5 @@ public class PharmacistDto {
     private Long adharNo;
     @Email
     private String email;
-    private String password;
+
 }

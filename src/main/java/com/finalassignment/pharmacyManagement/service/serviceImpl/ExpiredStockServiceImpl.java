@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 @Transactional
 public class ExpiredStockServiceImpl implements ExpiredStockService {
@@ -21,11 +22,16 @@ public class ExpiredStockServiceImpl implements ExpiredStockService {
     @Autowired
     private ExpiredStockRepository expiredStockRepository;
 
-    //This is entity converter method which changes entity from ExpiredStock to ExpiredStockDto
+
+    /**
+     * This is entity converter method which changes entity from ExpiredStock to ExpiredStockDto
+     *
+     * @param expiredStock
+     * @return
+     */
     private static ExpiredStockDto fromExStockDto(final ExpiredStock expiredStock) {
 
         ExpiredStockDto expiredStockDto = new ExpiredStockDto();
-        expiredStockDto.setMedicineId(expiredStock.getMedicineId());
         expiredStockDto.setMedicineName(expiredStock.getMedicineName());
         expiredStockDto.setCategory(expiredStock.getCategory());
         expiredStockDto.setCostPrice(expiredStock.getCostPrice());
@@ -35,12 +41,17 @@ public class ExpiredStockServiceImpl implements ExpiredStockService {
 
         return expiredStockDto;
     }
-    //This is entity converter method which changes entity from ExpiredStockDto  to ExpiredStock
+
+    /**
+     * This is entity converter method which changes entity from ExpiredStockDto  to ExpiredStock
+     *
+     * @param expiredStockDto
+     * @return
+     */
 
     private static ExpiredStock fromExStock(final ExpiredStockDto expiredStockDto) {
 
         ExpiredStock expiredStock = new ExpiredStock();
-        expiredStock.setMedicineId(expiredStockDto.getMedicineId());
         expiredStock.setMedicineName(expiredStockDto.getMedicineName());
         expiredStock.setCategory(expiredStockDto.getCategory());
         expiredStock.setCostPrice(expiredStockDto.getCostPrice());
@@ -51,7 +62,10 @@ public class ExpiredStockServiceImpl implements ExpiredStockService {
         return expiredStock;
     }
 
-
+    /**
+     *
+     * @return list of all books
+     */
     @Override
     public List<ExpiredStockDto> listAllStock() {
 
@@ -69,7 +83,10 @@ public class ExpiredStockServiceImpl implements ExpiredStockService {
     }
 
 
-    //this method convert medicine object to ExpiredMedicine
+    /**
+     * this method convert medicine object to ExpiredMedicine
+     * @param medicine
+     */
 
     @Override
     public void movetoExpired(Medicine medicine) {
@@ -83,6 +100,10 @@ public class ExpiredStockServiceImpl implements ExpiredStockService {
         expiredStockRepository.save(expiredStock);
     }
 
+    /**
+     * Delete the expire stock for given id
+     * @param id
+     */
     @Override
     public void delete(long id) {
         expiredStockRepository.deleteById(id);

@@ -33,15 +33,9 @@ public class ExpiredStock {
     @Column(name = "quantity")
 
     private Long quantity;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(name = "manufacturing_date")
-
-    //@PastOrPresent
     private Date manufacturingDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(name = "expiry_date")
-
-    //@FutureOrPresent
     private Date expiryDate;
 
 

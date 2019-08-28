@@ -1,6 +1,7 @@
 package com.finalassignment.pharmacyManagement.model;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Pharmacist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pharmacist_id")
     private Long pharmacistId;
+    @NonNull
     @Column(name = "pharmacist_name")
     private String pharmacistName;
     @Column(name = "contact_no")
@@ -30,6 +32,5 @@ public class Pharmacist {
     private Long adharNo;
     @Column(name = "email")
     private String email;
-    @Column(name = "password")
-    private String password;
+
 }

@@ -27,12 +27,15 @@ public class MedicineServiceImpl implements MedicineService {
     @Autowired
     private ExpiredStockService expiredStockService;
 
-    //This is entity converter method which changes entity from Medicine to MedicineDto
 
+    /**
+     * This is entity converter method which changes entity from Medicine to MedicineDto
+     * @param medicine
+     * @return
+     */
     private static MedicineDto fromMedicine(final Medicine medicine) {
 
         MedicineDto medicineDto = new MedicineDto();
-        medicineDto.setMedicineId(medicine.getMedicineId());
         medicineDto.setMedicineName(medicine.getMedicineName());
         medicineDto.setCategory(medicine.getCategory());
         medicineDto.setCostPrice(medicine.getCostPrice());
@@ -47,12 +50,16 @@ public class MedicineServiceImpl implements MedicineService {
         return medicineDto;
     }
 
-    //This is entity converter method which changes entity from MedicineDto to Medicine
+
+    /**
+     *This is entity converter method which changes entity from MedicineDto to Medicine
+     * @param medicineDto
+     * @return
+     */
 
     private static Medicine fromMedicineDto(final MedicineDto medicineDto) {
 
         Medicine medicine = new Medicine();
-        medicine.setMedicineId(medicineDto.getMedicineId());
         medicine.setMedicineName(medicineDto.getMedicineName());
         medicine.setCategory(medicineDto.getCategory());
         medicine.setCostPrice(medicineDto.getCostPrice());
@@ -67,6 +74,10 @@ public class MedicineServiceImpl implements MedicineService {
         return medicine;
     }
 
+    /**
+     *
+     * @return list of all medicine available
+     */
     @Override
     public List<MedicineDto> listAllMedicine() {
         List<Medicine> list = medicineRepository.findAll();
@@ -94,12 +105,22 @@ public class MedicineServiceImpl implements MedicineService {
 
     }
 
+    /**
+     * save Medicine into database
+     * @param medicineDto
+     * @return
+     */
     @Override
     public MedicineDto save(MedicineDto medicineDto) {
         Medicine medicine = medicineRepository.save(fromMedicineDto(medicineDto));
         return medicineDto;
     }
 
+    /**
+     *
+     * @param id
+     * @return medicine for given id
+     */
     @Override
     public MedicineDto getById(Long id) {
         Medicine medicine = medicineRepository.findById(id).orElseThrow(() -> new MedicineNotFoundException(id));
@@ -107,7 +128,10 @@ public class MedicineServiceImpl implements MedicineService {
         return medicineDto;
     }
 
-
+    /**
+     * delete medicine for given id
+     * @param id
+     */
     @Override
     public void delete(long id) {
         medicineRepository.deleteById(id);

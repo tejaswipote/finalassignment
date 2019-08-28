@@ -1,7 +1,6 @@
 package com.finalassignment.pharmacyManagement.model;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name="ex_pharmacist")
+@Table(name = "ex_pharmacist")
 public class ExPharmacist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

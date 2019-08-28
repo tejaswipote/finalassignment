@@ -2,6 +2,7 @@ package com.finalassignment.pharmacyManagement.controller;
 
 import com.finalassignment.pharmacyManagement.dto.MedicineDto;
 import com.finalassignment.pharmacyManagement.service.MedicineService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,11 +13,10 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+@Slf4j
 @RestController
 public class MedicineController {
-    private final static Logger LOGGER =
-            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
 
     @Autowired
     private MedicineService medicineService;
@@ -26,7 +26,7 @@ public class MedicineController {
      */
     @GetMapping("/allMedicine")
     public ResponseEntity<List> findAllMedicine() {
-        LOGGER.log(Level.INFO, "retrieving all medicines");
+        log.info("retrieving all medicines");
 
         return ResponseEntity.ok(medicineService.listAllMedicine());
     }
@@ -39,7 +39,7 @@ public class MedicineController {
      */
     @GetMapping("/getMedicine/{medicineId}")
     public MedicineDto getMedicine(@PathVariable Long medicineId) {
-        LOGGER.log(Level.INFO, "getting a medicine  details for medicineId "+ medicineId);
+        log.info("getting a medicine  details for medicineId "+ medicineId);
 
 
         return medicineService.getById(medicineId);
@@ -52,7 +52,7 @@ public class MedicineController {
      */
     @DeleteMapping(value = "/deleteMedicine/{id}")
     public ResponseEntity<Long> deleteMedicine(@PathVariable Long id) {
-        LOGGER.log(Level.INFO, "deleting a medicine  details for medicineId "+ id);
+        log.info("deleting a medicine  details for medicineId "+ id);
 
         medicineService.delete(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
@@ -67,7 +67,7 @@ public class MedicineController {
      */
     @PostMapping("/addMedicine")
     public ResponseEntity<MedicineDto> addMedicine(@RequestBody MedicineDto medicineDto) {
-        LOGGER.log(Level.INFO, "adding new medicine ");
+        log.info( "adding new medicine ");
 
 
         MedicineDto addMedicine = medicineService.save(medicineDto);
@@ -84,7 +84,7 @@ public class MedicineController {
     @PatchMapping("/updateMedicine/{id}")
     public ResponseEntity<MedicineDto> updateQuantity(@PathVariable Long id,
                                                       @Valid @RequestBody MedicineDto medicineDto) {
-        LOGGER.log(Level.INFO, "updating medicine   details for id "+ id);
+        log.info("updating medicine   details for id "+ id);
 
         MedicineDto medicinetoUpdate = medicineService.getById(id);
         medicinetoUpdate.setQuantity(medicineDto.getQuantity());

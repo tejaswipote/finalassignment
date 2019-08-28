@@ -9,6 +9,8 @@ import com.finalassignment.pharmacyManagement.model.Sale;
 import com.finalassignment.pharmacyManagement.repository.SaleRepository;
 import com.finalassignment.pharmacyManagement.service.MedicineService;
 import com.finalassignment.pharmacyManagement.service.SaleService;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,29 +20,32 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
+@Slf4j
 @Service
 @Transactional
 public class SaleServiceImpl implements SaleService {
-    private final static Logger LOGGER =
-            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     @Autowired
     private SaleRepository saleRepository;
     @Autowired
     private MedicineService medicineService;
-
+    @Autowired
+    private ModelMapper modelMapper;
 
     public SaleServiceImpl(SaleRepository saleRepository) {
         this.saleRepository = saleRepository;
     }
 
-    //This is entity converter method which changes entity from Sale to SaleDto
 
+    /**
+     * This is entity converter method which changes entity from Sale to SaleDto
+     *
+     * @param sale
+     * @return
+     */
     private static SaleDto fromSale(final Sale sale) {
 
         SaleDto saleDto = new SaleDto();
-        saleDto.setSaleId(sale.getSaleId());
         saleDto.setCustomerName(sale.getCustomerName());
         saleDto.setAddress(sale.getAddress());
         saleDto.setMedicines(sale.getMedicines());
@@ -48,12 +53,16 @@ public class SaleServiceImpl implements SaleService {
         saleDto.setDate(new Date());
         return saleDto;
     }
-    //This is entity converter method which changes entity from SaleDto  to Sale
 
-    private static Sale fromSaleDto(final SaleDto saleDto) {
 
+    /**
+     * This is entity converter method which changes entity from SaleDto  to Sale
+     *
+     * @param saleDto
+     * @return
+     */
+    private Sale fromSaleDto(final SaleDto saleDto) {
         Sale sale = new Sale();
-        sale.setSaleId(saleDto.getSaleId());
         sale.setCustomerName(saleDto.getCustomerName());
         sale.setAddress(saleDto.getAddress());
         sale.setMedicines(saleDto.getMedicines());
@@ -62,7 +71,10 @@ public class SaleServiceImpl implements SaleService {
         return sale;
     }
 
-
+    /**
+     * @param saleDto
+     * @return
+     */
     @Override
     public SaleDto addSale(SaleDto saleDto) {
         Sale sale = saleRepository.save(fromSaleDto(saleDto));
@@ -87,13 +99,18 @@ public class SaleServiceImpl implements SaleService {
         return saleDtos;
     }
 
+    /**
+     * add sale and calculate total price
+     *
+     * @param saleDto
+     * @return
+     */
 
     @Override
     public SaleDto saveSale(SaleDto saleDto) {
-
         Long total = 0L;
         List<Medicine> medicines = saleDto.getMedicines();
-        LOGGER.log(Level.INFO, "calculating total ");
+        log.info("calculating total ");
 
         //loops through all Medicine in sale
         for (Medicine medicine : medicines) {
@@ -119,6 +136,10 @@ public class SaleServiceImpl implements SaleService {
 
     }
 
+    /**
+     * @param id
+     * @return sale for given id
+     */
 
     @Override
     public SaleDto getById(Long id) {
