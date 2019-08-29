@@ -5,8 +5,11 @@ import com.finalassignment.pharmacyManagement.dto.SaleDto;
 import com.finalassignment.pharmacyManagement.exceptionhandling.OutOfStockException;
 import com.finalassignment.pharmacyManagement.exceptionhandling.SaleNotFoundException;
 import com.finalassignment.pharmacyManagement.model.Medicine;
+import com.finalassignment.pharmacyManagement.model.MedicineCount;
 import com.finalassignment.pharmacyManagement.model.Sale;
+import com.finalassignment.pharmacyManagement.repository.MedicineCountRepository;
 import com.finalassignment.pharmacyManagement.repository.SaleRepository;
+import com.finalassignment.pharmacyManagement.service.MedicineCountService;
 import com.finalassignment.pharmacyManagement.service.MedicineService;
 import com.finalassignment.pharmacyManagement.service.SaleService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +32,9 @@ public class SaleServiceImpl implements SaleService {
     private SaleRepository saleRepository;
     @Autowired
     private MedicineService medicineService;
+    @Autowired
+    private MedicineCountService medicineCountService;
+   
 
     public SaleServiceImpl(SaleRepository saleRepository) {
         this.saleRepository = saleRepository;
@@ -108,11 +114,18 @@ public class SaleServiceImpl implements SaleService {
     public SaleDto saveSale(SaleDto saleDto) {
         Long total = 0L;
         List<Medicine> medicines = saleDto.getMedicines();
+
         log.info("calculating total ");
 
         //loops through all Medicine in sale
         for (Medicine medicine : medicines) {
             Long count = medicine.getCount();
+            MedicineCount medicineCount=new MedicineCount();
+            medicineCount.setSaleId(saleDto.getSaleId());
+            medicineCount.setMedicineId(medicine.getMedicineId());
+            medicineCount.setCount(count);
+            medicineCountService.save(medicineCount);
+
 
             MedicineDto soldMedicine = medicineService.getById(medicine.getMedicineId());
             //check if stock is available or not

@@ -26,7 +26,6 @@ public class Medicine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long medicineId;
     @NonNull
-    @UniqueElements
     @Column(name = "medicine_name")
     private String medicineName;
     @Column(name = "category")
