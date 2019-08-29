@@ -39,6 +39,7 @@ public class PharmacistServiceImpl implements PharmacistService {
     private static PharmacistDto fromPharmacist(final Pharmacist pharmacist) {
 
         PharmacistDto pharmacistDto = new PharmacistDto();
+        pharmacistDto.setPharmacistId(pharmacist.getPharmacistId());
         pharmacistDto.setPharmacistName(pharmacist.getPharmacistName());
         pharmacistDto.setAddress(pharmacist.getAddress());
         pharmacistDto.setAdharNo(pharmacist.getAdharNo());
@@ -55,6 +56,7 @@ public class PharmacistServiceImpl implements PharmacistService {
     private static Pharmacist fromPharmacistDto(final PharmacistDto pharmacistDto) {
 
         Pharmacist pharmacist = new Pharmacist();
+        pharmacist.setPharmacistId(pharmacistDto.getPharmacistId());
         pharmacist.setPharmacistName(pharmacistDto.getPharmacistName());
         pharmacist.setAddress(pharmacistDto.getAddress());
         pharmacist.setAdharNo(pharmacistDto.getAdharNo());
@@ -86,6 +88,7 @@ public class PharmacistServiceImpl implements PharmacistService {
     public PharmacistDto save(PharmacistDto pharmacistDto) {
 
         Pharmacist pharmacist = pharmacistRepository.save(fromPharmacistDto(pharmacistDto));
+        pharmacistDto.setPharmacistId(pharmacist.getPharmacistId());
         return pharmacistDto;
 
     }

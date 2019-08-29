@@ -38,6 +38,7 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
     private static ExPharmacistDto fromExPharmacist(final ExPharmacist exPharmacist) {
 
         ExPharmacistDto exPharmacistDto = new ExPharmacistDto();
+        exPharmacistDto.setPharmacistId(exPharmacist.getPharmacistId());
         exPharmacistDto.setPharmacistName(exPharmacist.getPharmacistName());
         exPharmacistDto.setAddress(exPharmacist.getAddress());
         exPharmacistDto.setAdharNo(exPharmacist.getAdharNo());
@@ -57,6 +58,7 @@ public class ExPharmacistServiceImpl implements ExPharmacistService {
     private static ExPharmacist fromExPharmacistDto(final ExPharmacistDto exPharmacistDto) {
 
         ExPharmacist exPharmacist = new ExPharmacist();
+        exPharmacist.setPharmacistId(exPharmacistDto.getPharmacistId());
         exPharmacist.setPharmacistName(exPharmacistDto.getPharmacistName());
         exPharmacist.setAddress(exPharmacistDto.getAddress());
         exPharmacist.setAdharNo(exPharmacistDto.getAdharNo());

@@ -20,7 +20,7 @@ public class Sale {
 
     @Id
     @Column(name = "sale_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long saleId;
     @Column(name = "customer_name")
     private String customerName;

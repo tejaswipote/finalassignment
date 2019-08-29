@@ -32,6 +32,7 @@ public class ExpiredStockServiceImpl implements ExpiredStockService {
     private static ExpiredStockDto fromExStockDto(final ExpiredStock expiredStock) {
 
         ExpiredStockDto expiredStockDto = new ExpiredStockDto();
+        expiredStockDto.setMedicineId(expiredStock.getMedicineId());
         expiredStockDto.setMedicineName(expiredStock.getMedicineName());
         expiredStockDto.setCategory(expiredStock.getCategory());
         expiredStockDto.setCostPrice(expiredStock.getCostPrice());
@@ -52,6 +53,7 @@ public class ExpiredStockServiceImpl implements ExpiredStockService {
     private static ExpiredStock fromExStock(final ExpiredStockDto expiredStockDto) {
 
         ExpiredStock expiredStock = new ExpiredStock();
+        expiredStockDto.setMedicineId(expiredStock.getMedicineId());
         expiredStock.setMedicineName(expiredStockDto.getMedicineName());
         expiredStock.setCategory(expiredStockDto.getCategory());
         expiredStock.setCostPrice(expiredStockDto.getCostPrice());

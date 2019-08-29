@@ -7,13 +7,11 @@ import com.finalassignment.pharmacyManagement.exceptionhandling.SaleNotFoundExce
 import com.finalassignment.pharmacyManagement.model.Medicine;
 import com.finalassignment.pharmacyManagement.model.MedicineCount;
 import com.finalassignment.pharmacyManagement.model.Sale;
-import com.finalassignment.pharmacyManagement.repository.MedicineCountRepository;
 import com.finalassignment.pharmacyManagement.repository.SaleRepository;
 import com.finalassignment.pharmacyManagement.service.MedicineCountService;
 import com.finalassignment.pharmacyManagement.service.MedicineService;
 import com.finalassignment.pharmacyManagement.service.SaleService;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +20,6 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 
 @Slf4j
 @Service
@@ -34,7 +31,7 @@ public class SaleServiceImpl implements SaleService {
     private MedicineService medicineService;
     @Autowired
     private MedicineCountService medicineCountService;
-   
+
 
     public SaleServiceImpl(SaleRepository saleRepository) {
         this.saleRepository = saleRepository;
@@ -50,6 +47,7 @@ public class SaleServiceImpl implements SaleService {
     private static SaleDto fromSale(final Sale sale) {
 
         SaleDto saleDto = new SaleDto();
+        saleDto.setSaleId(sale.getSaleId());
         saleDto.setCustomerName(sale.getCustomerName());
         saleDto.setAddress(sale.getAddress());
         saleDto.setMedicines(sale.getMedicines());
@@ -67,6 +65,7 @@ public class SaleServiceImpl implements SaleService {
      */
     private Sale fromSaleDto(final SaleDto saleDto) {
         Sale sale = new Sale();
+        sale.setSaleId(sale.getSaleId());
         sale.setCustomerName(saleDto.getCustomerName());
         sale.setAddress(saleDto.getAddress());
         sale.setMedicines(saleDto.getMedicines());
@@ -114,18 +113,11 @@ public class SaleServiceImpl implements SaleService {
     public SaleDto saveSale(SaleDto saleDto) {
         Long total = 0L;
         List<Medicine> medicines = saleDto.getMedicines();
-
         log.info("calculating total ");
 
         //loops through all Medicine in sale
         for (Medicine medicine : medicines) {
             Long count = medicine.getCount();
-            MedicineCount medicineCount=new MedicineCount();
-            medicineCount.setSaleId(saleDto.getSaleId());
-            medicineCount.setMedicineId(medicine.getMedicineId());
-            medicineCount.setCount(count);
-            medicineCountService.save(medicineCount);
-
 
             MedicineDto soldMedicine = medicineService.getById(medicine.getMedicineId());
             //check if stock is available or not
@@ -143,6 +135,16 @@ public class SaleServiceImpl implements SaleService {
 
         Sale sale = fromSaleDto(saleDto);
         saleRepository.save(sale);
+        saleDto.setSaleId(sale.getSaleId());
+        //loops through all Medicine in sale
+        for (Medicine medicine : medicines) {
+            Long count = medicine.getCount();
+            MedicineCount medicineCount = new MedicineCount();
+            medicineCount.setSaleId(sale.getSaleId());
+            medicineCount.setMedicineId(medicine.getMedicineId());
+            medicineCount.setCount(count);
+            medicineCountService.save(medicineCount);
+        }
         return saleDto;
 
     }

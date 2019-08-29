@@ -36,6 +36,7 @@ public class MedicineServiceImpl implements MedicineService {
     private static MedicineDto fromMedicine(final Medicine medicine) {
 
         MedicineDto medicineDto = new MedicineDto();
+        medicineDto.setMedicineId(medicine.getMedicineId());
         medicineDto.setMedicineName(medicine.getMedicineName());
         medicineDto.setCategory(medicine.getCategory());
         medicineDto.setCostPrice(medicine.getCostPrice());
@@ -60,6 +61,7 @@ public class MedicineServiceImpl implements MedicineService {
     private static Medicine fromMedicineDto(final MedicineDto medicineDto) {
 
         Medicine medicine = new Medicine();
+        medicine.setMedicineId(medicineDto.getMedicineId());
         medicine.setMedicineName(medicineDto.getMedicineName());
         medicine.setCategory(medicineDto.getCategory());
         medicine.setCostPrice(medicineDto.getCostPrice());
@@ -111,10 +113,11 @@ public class MedicineServiceImpl implements MedicineService {
      * @return
      */
     @Override
-    public MedicineDto save(MedicineDto medicineDto) {
+    public Medicine save(MedicineDto medicineDto) {
         Medicine medicine = medicineRepository.save(fromMedicineDto(medicineDto));
-        return medicineDto;
+        return medicine;
     }
+
 
     /**
      *
